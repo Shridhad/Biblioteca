@@ -25,6 +25,3 @@ Technical Requirements
 
     This needs to stay a console application. For UI specifications with respect to design, colour etc use your own imagination
     We do not need a database at this point.
-
-
-NOTE: You don't need to submit this assignment using this TWU website, just share the GIT repository with your coach.
