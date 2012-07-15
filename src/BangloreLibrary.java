@@ -1,7 +1,6 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,7 +11,57 @@ import java.util.Scanner;
  */
 public class BangloreLibrary {
 
-    private ArrayList<String> menuList;
+    private static List<MenuItem> menuItems;
+    private static List<Book> bookList;
+
+    private class Book{
+        private String bookName;
+        private String bookAuthor;
+        private boolean available;
+
+
+        public Book(String bookName, String bookAuthor){
+            this.bookName = bookName;
+            this.bookAuthor = bookAuthor;
+            this.available = true;
+        }
+
+        public boolean isAvailable(){
+            return available;
+        }
+        public String getBookName(){
+            return bookName;
+        }
+
+        public String getBookDetails() {
+            String bookDetails = this.bookName + "\t\t" + this.bookAuthor + "\t\t";
+            if(isAvailable())
+                return bookDetails + "Available";
+            return bookDetails + "Issued";
+        }
+
+        public void reserve() {
+            this.available = false;
+        }
+    }
+
+    private class MenuItem {
+        private String menuItemName;
+            
+        public MenuItem(String menuItemName) {
+            this.menuItemName = menuItemName;
+        }
+
+        @Override
+        public String toString(){
+            return menuItemName;
+        }
+    }
+
+    public BangloreLibrary(){
+        bookList = new ArrayList<Book>();
+        menuItems = new ArrayList<MenuItem>();
+    }
     
     @Override
     public boolean equals(Object other) {
@@ -33,19 +82,27 @@ public class BangloreLibrary {
     }
 
     public String menuOptions() {
-        String []menu = {"View All Books",
-                            "Reserve Book",
-                            "Return Book",
-                            "Show Library Number"};
+        menuItems.addAll(Arrays.asList(createMenu()));
 
-        menuList = new ArrayList<String>(Arrays.asList(menu));
-        String outputString = new String();
-
-        outputString = "Menu: ";
-        for(int i=0; i<menuList.size(); i++){
-            outputString = outputString + "\n" + (i+1) +". " + menuList.get(i);
+        String outputString = new String("\nMenu: ");
+        for(int i=0; i < menuItems.size(); i++){
+            outputString = outputString + "\n" + (i+1) +". " + menuItems.get(i);
         }
-        outputString = outputString + "\n Enter your choice:";
+        System.out.print(outputString);
+        return outputString;
+    }
+    
+    public MenuItem[] createMenu() {
+        MenuItem []menuItems = {new MenuItem("View All Books"),
+                                new MenuItem("Reserve Book"),
+                                new MenuItem("Return Book"),
+                                new MenuItem("Show Library Number")
+                                };
+        return menuItems;
+    }
+
+    public String askUserChoice() {
+        String outputString = "\nEnter your choice:";
         System.out.print(outputString);
         return outputString;
     }
@@ -54,5 +111,53 @@ public class BangloreLibrary {
        if(menuIndex < 0 || menuIndex > 4)
            return  false;
         return true;
+    }
+
+
+    public String reserveBook(String bookName) {
+        String reservedMessage = "Thank You! Enjoy the book.";
+        String notAvailableMessage = "Sorry we don't have that book yet.";
+
+        Book book = getBook(bookName);
+        if(book != null && book.isAvailable()){
+            book.reserve();
+            System.out.print(reservedMessage);
+            return reservedMessage;
+        }
+        System.out.print(notAvailableMessage);
+        return notAvailableMessage;
+    }
+
+    private Book getBook(String bookName) {
+        for(Book book:bookList ){
+            if(book.getBookName().equals(bookName))
+                return book;
+        }
+        return null;
+    }
+
+
+    public String returnBook(String bookName) {
+        String outputMessage = "Thank you! Hope you enjoyed the book.";
+        return outputMessage;
+    }
+    
+    public String addNewBook(String bookName, String bookAuthor ) {
+        Book newBook = new Book(bookName,bookAuthor);
+
+        bookList.add(newBook);
+        String message = "\nBook Added Successfully" ;
+        System.out.print(message);
+        return message;
+    }
+
+    public String showAllBooks() {
+        String output = "\nBookName\t\tBookAuthor\t\tStatus\n";
+        for(Book book: bookList){
+            output = output + book.getBookDetails() + "\n";
+        }
+        System.out.print(output);
+
+        return output;
     }
 }
