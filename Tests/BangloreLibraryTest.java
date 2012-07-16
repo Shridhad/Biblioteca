@@ -93,14 +93,12 @@ public class BangloreLibraryTest {
     @Test
     public void testNotifyIfBookReturned(){
         String bookName = "Testing";
-
+        String bookAuthor = "Kent";
+        bangloreLibrary.addNewBook(bookName,bookAuthor);
+        bangloreLibrary.reserveBook(bookName);
         Assert.assertEquals("Thank you! Hope you enjoyed the book.",bangloreLibrary.returnBook(bookName));
     }
 
-    @Test
-    public void shouldProcessUserChoiceRight(){
-
-    }
     
 
 }

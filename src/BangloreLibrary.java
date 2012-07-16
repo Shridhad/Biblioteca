@@ -43,6 +43,10 @@ public class BangloreLibrary {
         public void reserve() {
             this.available = false;
         }
+
+        public void returnBook(){
+            this.available = true;
+        }
     }
 
     private class MenuItem {
@@ -113,7 +117,6 @@ public class BangloreLibrary {
         return true;
     }
 
-
     public String reserveBook(String bookName) {
         String reservedMessage = "Thank You! Enjoy the book.";
         String notAvailableMessage = "Sorry we don't have that book yet.";
@@ -139,6 +142,15 @@ public class BangloreLibrary {
 
     public String returnBook(String bookName) {
         String outputMessage = "Thank you! Hope you enjoyed the book.";
+
+        Book book = getBook(bookName);
+        if(book != null && !book.isAvailable()){
+            book.returnBook();
+            System.out.print(outputMessage);
+            return outputMessage;
+        }
+        outputMessage = "No Such Book was issued to you.";
+        System.out.print(outputMessage);
         return outputMessage;
     }
     

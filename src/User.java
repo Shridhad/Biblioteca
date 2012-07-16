@@ -28,5 +28,9 @@ public class User {
         System.out.print("Enter Book Name To Reserve:");
         bookName = scanner.nextLine();
         bangloreLibrary.reserveBook(bookName);
+
+        System.out.print("\nEnter Book name To Return:");
+        bookName = scanner.nextLine();
+        bangloreLibrary.returnBook(bookName);
     }
 }
