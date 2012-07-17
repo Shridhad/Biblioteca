@@ -15,31 +15,9 @@ public class BangloreLibraryTest {
     BangloreLibrary bangloreLibrary = new BangloreLibrary();
 
     @Test
-    public void shouldEquateSameLibraries() {
-        BangloreLibrary bangloreLibrary1 = new BangloreLibrary();
-        BangloreLibrary bangloreLibrary2 = new BangloreLibrary();
-
-        Assert.assertEquals(bangloreLibrary1, bangloreLibrary2);
-    }
-
-    @Test
-    public void shouldNotEquateNullObject(){
-
-        Assert.assertFalse(bangloreLibrary.equals(null));
-    }
-
-    @Test
     public void testShowsWelcomeMessage(){
 
         Assert.assertEquals("Welcome", bangloreLibrary.welcomeUser());
-    }
-
-    @Test
-    public void testShowsMenuOptions(){
-
-        String menuString = new String("\nMenu: \n1. View All Books\n2. Reserve Book\n3. Return Book\n4. Show Library Number");
-
-        Assert.assertEquals(menuString, bangloreLibrary.menuOptions());
     }
 
     @Test
@@ -68,8 +46,8 @@ public class BangloreLibraryTest {
         String bookAuthor = "Kent";
         bangloreLibrary.addNewBook(bookName, bookAuthor);
 
-        String expectedOutput = "\nBookName\t\tBookAuthor\t\tStatus\n";
-        expectedOutput = expectedOutput + "Testing\t\tKent\t\tAvailable\n";
+        String expectedOutput = "\nBookName BookAuthor Status\n";
+        expectedOutput = expectedOutput + "Testing Kent Available\n";
 
         Assert.assertEquals(expectedOutput,bangloreLibrary.showAllBooks());
     }
@@ -99,6 +77,20 @@ public class BangloreLibraryTest {
         Assert.assertEquals("Thank you! Hope you enjoyed the book.",bangloreLibrary.returnBook(bookName));
     }
 
-    
+    @Test
+    public void shouldAddNewCustomer(){
+        String customerName = "XYZ";
+        int customerNumber = 1001;
 
+        Assert.assertEquals("\nCustomers Added Successfully", bangloreLibrary.addNewCustomer(customerName, customerNumber));
+    }
+
+    @Test
+    public void shouldShowCustomerDetails(){
+        String customerName = "XYZ";
+        int customerNumber = 1001;
+        bangloreLibrary.addNewCustomer(customerName,customerNumber);
+
+        Assert.assertEquals(1001, bangloreLibrary.getLibraryNumber(customerName));
+    }
 }

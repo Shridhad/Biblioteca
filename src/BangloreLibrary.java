@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,100 +7,23 @@ import java.util.List;
  * Time: 1:51 PM
  * To change this template use File | Settings | File Templates.
  */
+
 public class BangloreLibrary {
 
-    private static List<MenuItem> menuItems;
+    private static Menu bookMenu;
     private static List<Book> bookList;
-
-    private class Book{
-        private String bookName;
-        private String bookAuthor;
-        private boolean available;
-
-
-        public Book(String bookName, String bookAuthor){
-            this.bookName = bookName;
-            this.bookAuthor = bookAuthor;
-            this.available = true;
-        }
-
-        public boolean isAvailable(){
-            return available;
-        }
-        public String getBookName(){
-            return bookName;
-        }
-
-        public String getBookDetails() {
-            String bookDetails = this.bookName + "\t\t" + this.bookAuthor + "\t\t";
-            if(isAvailable())
-                return bookDetails + "Available";
-            return bookDetails + "Issued";
-        }
-
-        public void reserve() {
-            this.available = false;
-        }
-
-        public void returnBook(){
-            this.available = true;
-        }
-    }
-
-    private class MenuItem {
-        private String menuItemName;
-            
-        public MenuItem(String menuItemName) {
-            this.menuItemName = menuItemName;
-        }
-
-        @Override
-        public String toString(){
-            return menuItemName;
-        }
-    }
+    private static Customers customers;
 
     public BangloreLibrary(){
         bookList = new ArrayList<Book>();
-        menuItems = new ArrayList<MenuItem>();
-    }
-    
-    @Override
-    public boolean equals(Object other) {
-        if(other == null)
-            return false;
-        if(other == this)
-            return true;
-        if(getClass() == ((BangloreLibrary)other).getClass()){
-            return true;
-        }
-        return false;
+        bookMenu = Menu.createBookMenu();
+        customers = new Customers();
     }
 
     public String welcomeUser() {
         String outputString = new String("Welcome");
         System.out.print(outputString);
         return outputString;
-    }
-
-    public String menuOptions() {
-        menuItems.addAll(Arrays.asList(createMenu()));
-
-        String outputString = new String("\nMenu: ");
-        for(int i=0; i < menuItems.size(); i++){
-            outputString = outputString + "\n" + (i+1) +". " + menuItems.get(i);
-        }
-        System.out.print(outputString);
-        return outputString;
-    }
-    
-    public MenuItem[] createMenu() {
-        MenuItem []menuItems = {new MenuItem("View All Books"),
-                                new MenuItem("Reserve Book"),
-                                new MenuItem("Return Book"),
-                                new MenuItem("Show Library Number")
-                                };
-        return menuItems;
     }
 
     public String askUserChoice() {
@@ -164,12 +85,24 @@ public class BangloreLibrary {
     }
 
     public String showAllBooks() {
-        String output = "\nBookName\t\tBookAuthor\t\tStatus\n";
+        String output = "\nBookName BookAuthor Status\n";
         for(Book book: bookList){
             output = output + book.getBookDetails() + "\n";
         }
         System.out.print(output);
 
         return output;
+    }
+
+    public void displayMenu() {
+        System.out.print(bookMenu);
+    }
+
+    public String addNewCustomer(String customerName, int customerNumber) {
+        return customers.addNewCustomer(customerName,customerNumber);
+    }
+
+    public int getLibraryNumber(String customerName) {
+        return customers.getLibraryNumber(customerName);
     }
 }

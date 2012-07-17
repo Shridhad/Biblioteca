@@ -12,7 +12,7 @@ public class User {
     public static void main(String []args)throws Exception{
         BangloreLibrary bangloreLibrary = new BangloreLibrary();
         bangloreLibrary.welcomeUser();
-        bangloreLibrary.menuOptions();
+        bangloreLibrary.displayMenu();
         bangloreLibrary.askUserChoice();
 
         Scanner scanner = new Scanner(System.in);
