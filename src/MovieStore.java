@@ -8,31 +8,12 @@ import java.util.List;
  * Time: 10:26 AM
  * To change this template use File | Settings | File Templates.
  */
+
+/* Responsibility: Store all movies in list */
 public class MovieStore {
 
     private static List<Movie> movies;
 
-    private class Movie{
-        private String name;
-        private String director;
-        private int rating;
-        
-        public Movie(String name, String director, int rating){
-            this.name = name;
-            this.director = director;
-            this.rating = rating;
-        }
-        @Override
-        public String toString(){
-            String output = name + " " + director;
-            if(rating > 0 && rating < 10){
-                output = output + " " + rating;
-                return output;
-            }
-            output += " " + "NA";
-            return output;
-        }
-    }
     public MovieStore(){
         movies = new ArrayList<Movie>(15);
         addMovies();
