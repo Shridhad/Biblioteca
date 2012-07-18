@@ -12,25 +12,23 @@ public class User {
     public static void main(String []args)throws Exception{
         BangloreLibrary bangloreLibrary = new BangloreLibrary();
         bangloreLibrary.welcomeUser();
-        bangloreLibrary.displayMenu();
-        bangloreLibrary.askUserChoice();
 
-        Scanner scanner = new Scanner(System.in);
-        int menuChoice = Integer.parseInt(scanner.nextLine());
-        bangloreLibrary.checkValidMenu(menuChoice);
         String bookName = "Testing";
         String bookAuthor = "Kent";
         bangloreLibrary.addNewBook(bookName, bookAuthor);
         bangloreLibrary.addNewBook("Java", "Herbert");
         bangloreLibrary.addNewBook("OOD", "Booch");
 
-        bangloreLibrary.showAllBooks();
-        System.out.print("Enter Book Name To Reserve:");
-        bookName = scanner.nextLine();
-        bangloreLibrary.reserveBook(bookName);
+        bangloreLibrary.addNewCustomer("ABC", 1001);
+        bangloreLibrary.addNewCustomer("XYZ", 1002);
 
-        System.out.print("\nEnter Book name To Return:");
-        bookName = scanner.nextLine();
-        bangloreLibrary.returnBook(bookName);
+        while(true){
+            bangloreLibrary.displayMenu();
+
+            int menuChoice = bangloreLibrary.askUserChoice();
+            if(!bangloreLibrary.checkValidMenu(menuChoice))
+                break;
+            bangloreLibrary.processUserInput(menuChoice);
+        }
     }
 }

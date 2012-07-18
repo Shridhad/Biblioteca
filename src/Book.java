@@ -5,6 +5,7 @@
  * Time: 11:49 PM
  * To change this template use File | Settings | File Templates.
 */
+/* Responsibility : Contains details of book and reserve and return of book */
 public class Book{
     private String bookName;
     private String bookAuthor;

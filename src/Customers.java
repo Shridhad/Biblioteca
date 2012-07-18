@@ -8,6 +8,9 @@ import java.util.List;
  * Time: 9:46 AM
  * To change this template use File | Settings | File Templates.
  */
+
+
+/* Responsibility : Maintain list of all customers and provide information if asked */
 public class Customers {
 
     private List<Customer> customerList;
@@ -34,12 +37,12 @@ public class Customers {
         customerList = new ArrayList<Customer>();
     }
 
-    public int getLibraryNumber(String customerName) {
+    public String getLibraryNumber(String customerName) {
         Customer customer = getCustomer(customerName);
         if(customer == null){
-            return -1;
+            return new String("No Such customer exist.!");
         }
-        return customer.getCustomerNumber();
+        return customer.getCustomerNumber() + "";
     }
 
     private Customer getCustomer(String customerName){
@@ -53,7 +56,7 @@ public class Customers {
     public String addNewCustomer(String customerName, int customerNumber){
         Customer customer = new Customer(customerName,customerNumber);
         customerList.add(customer);
-        String outputString = "\nCustomers Added Successfully";
+        String outputString = "\nCustomer Added Successfully";
         System.out.print(outputString);
 
         return outputString;

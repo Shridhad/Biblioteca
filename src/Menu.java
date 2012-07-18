@@ -7,14 +7,17 @@ import java.util.Arrays;
  * Time: 8:57 AM
  * To change this template use File | Settings | File Templates.
  */
+
+/* Responsibility : Create and display menu */
 public class Menu {
 
     public enum MenuItem{
         ViewAllBooks("View All Books"),
         ReserveBook("Reserve Book"),
         ReturnBook("Return Book"),
-        ShowLibraryNumber("Show Library Number");
-        
+        ShowLibraryNumber("Show Library Number"),
+        Exit("Exit");
+
         private String menuItemName;
 
         private MenuItem(String menuItemName){
@@ -33,7 +36,7 @@ public class Menu {
     }      
     
     public static Menu createBookMenu() {
-        MenuItem []menuItems = {MenuItem.ViewAllBooks, MenuItem.ReserveBook, MenuItem.ReturnBook, MenuItem.ShowLibraryNumber};
+        MenuItem []menuItems = {MenuItem.ViewAllBooks, MenuItem.ReserveBook, MenuItem.ReturnBook, MenuItem.ShowLibraryNumber, MenuItem.Exit};
                      
         return new Menu(menuItems);
     }

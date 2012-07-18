@@ -21,12 +21,6 @@ public class BangloreLibraryTest {
     }
 
     @Test
-    public void testAsksUserForChoice(){
-        String expectedOutput = "\nEnter your choice:";
-        Assert.assertEquals(expectedOutput,bangloreLibrary.askUserChoice());
-    }
-
-    @Test
     public void testValidSelectedMenuOption(){
 
         Assert.assertTrue(bangloreLibrary.checkValidMenu(2));
@@ -91,6 +85,17 @@ public class BangloreLibraryTest {
         int customerNumber = 1001;
         bangloreLibrary.addNewCustomer(customerName,customerNumber);
 
-        Assert.assertEquals(1001, bangloreLibrary.getLibraryNumber(customerName));
+        Assert.assertEquals("Customer Number: 1001", bangloreLibrary.showCustomerNumber(customerName));
+    }
+
+    @Test
+    public void shouldShowAllMovies(){
+        String expectedString = "Movie Director Rating" +
+                "\nHarry Potter Mike Newell 9" +
+                "\nTangled Byron Howard 8" +
+                "\nRio Carlos Saldanha 8" +
+                "\nMegaMind Tom McGrath 8" +
+                "\nDark Knight Rises Christopher Nolan NA";
+        Assert.assertEquals(expectedString, bangloreLibrary.showAllMovies());
     }
 }

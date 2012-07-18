@@ -7,17 +7,21 @@ import java.util.*;
  * Time: 1:51 PM
  * To change this template use File | Settings | File Templates.
  */
-
+/* Responsibility : Provide user with different operation of library */
 public class BangloreLibrary {
 
     private static Menu bookMenu;
-    private static List<Book> bookList;
+    private static BookRepository bookRepository;    
     private static Customers customers;
+    private static UserInput userInput;
+    private static MovieStore movieStore;
 
     public BangloreLibrary(){
-        bookList = new ArrayList<Book>();
+        bookRepository = new BookRepository();        
         bookMenu = Menu.createBookMenu();
         customers = new Customers();
+        userInput = new UserInput();
+        movieStore = new MovieStore();
     }
 
     public String welcomeUser() {
@@ -25,11 +29,9 @@ public class BangloreLibrary {
         System.out.print(outputString);
         return outputString;
     }
-
-    public String askUserChoice() {
-        String outputString = "\nEnter your choice:";
-        System.out.print(outputString);
-        return outputString;
+    
+    public int askUserChoice(){
+        return userInput.askChoice();
     }
 
     public boolean checkValidMenu(int menuIndex) {
@@ -37,61 +39,21 @@ public class BangloreLibrary {
            return  false;
         return true;
     }
-
-    public String reserveBook(String bookName) {
-        String reservedMessage = "Thank You! Enjoy the book.";
-        String notAvailableMessage = "Sorry we don't have that book yet.";
-
-        Book book = getBook(bookName);
-        if(book != null && book.isAvailable()){
-            book.reserve();
-            System.out.print(reservedMessage);
-            return reservedMessage;
-        }
-        System.out.print(notAvailableMessage);
-        return notAvailableMessage;
-    }
-
-    private Book getBook(String bookName) {
-        for(Book book:bookList ){
-            if(book.getBookName().equals(bookName))
-                return book;
-        }
-        return null;
-    }
-
-
-    public String returnBook(String bookName) {
-        String outputMessage = "Thank you! Hope you enjoyed the book.";
-
-        Book book = getBook(bookName);
-        if(book != null && !book.isAvailable()){
-            book.returnBook();
-            System.out.print(outputMessage);
-            return outputMessage;
-        }
-        outputMessage = "No Such Book was issued to you.";
-        System.out.print(outputMessage);
-        return outputMessage;
+    
+    public String reserveBook(String bookName){
+        return bookRepository.reserveBook(bookName);
     }
     
-    public String addNewBook(String bookName, String bookAuthor ) {
-        Book newBook = new Book(bookName,bookAuthor);
-
-        bookList.add(newBook);
-        String message = "\nBook Added Successfully" ;
-        System.out.print(message);
-        return message;
+    public String returnBook(String bookName){
+        return bookRepository.returnBook(bookName);
     }
 
-    public String showAllBooks() {
-        String output = "\nBookName BookAuthor Status\n";
-        for(Book book: bookList){
-            output = output + book.getBookDetails() + "\n";
-        }
-        System.out.print(output);
+    public String addNewBook(String bookName, String bookAuthor){
+        return bookRepository.addNewBook(bookName,bookAuthor);
+    }
 
-        return output;
+    public String showAllBooks(){
+        return bookRepository.showAllBooks();
     }
 
     public void displayMenu() {
@@ -101,8 +63,27 @@ public class BangloreLibrary {
     public String addNewCustomer(String customerName, int customerNumber) {
         return customers.addNewCustomer(customerName,customerNumber);
     }
+    
+    public String showCustomerNumber(String customerName){
+        String output =  "Customer Number: " + customers.getLibraryNumber(customerName);
+        System.out.print(output);
+        return output;
+    }
+    
+    public void processUserInput(int choice){
+        switch (choice){
+            case 1:     showAllBooks();
+                break;
+            case 2:     reserveBook(userInput.askBookName());
+                break;
+            case 3:     returnBook(userInput.askBookName());
+                break;
+            case 4:     showCustomerNumber(userInput.askCustomerName());
+                break;
+        }
+    }
 
-    public int getLibraryNumber(String customerName) {
-        return customers.getLibraryNumber(customerName);
+    public String showAllMovies() {
+        return movieStore.showAllMovies();
     }
 }

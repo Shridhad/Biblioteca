@@ -16,7 +16,7 @@ public class TestMenu {
     @Test
     public void shouldCreateRightBookMenu(){
         Menu bookMenu = Menu.createBookMenu();
-        String expectedBookMenu = "\nMenu: \n1. View All Books\n2. Reserve Book\n3. Return Book\n4. Show Library Number";
+        String expectedBookMenu = "\nMenu: \n1. View All Books\n2. Reserve Book\n3. Return Book\n4. Show Library Number\n5. Exit";
         Assert.assertEquals(expectedBookMenu, bookMenu.toString());
     }
 
