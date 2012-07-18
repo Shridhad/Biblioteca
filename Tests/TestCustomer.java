@@ -17,7 +17,7 @@ public class TestCustomer {
         String customerName = "XYZ";
         int customerNumber = 1001;
 
-        Assert.assertEquals("\nCustomers Added Successfully", customers.addNewCustomer(customerName, customerNumber));
+        Assert.assertEquals("\nCustomer Added Successfully", customers.addNewCustomer(customerName, customerNumber));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class TestCustomer {
         int customerNumber = 1001;
         customers.addNewCustomer(customerName,customerNumber);
 
-        Assert.assertEquals(1001, customers.getLibraryNumber(customerName));
+        Assert.assertEquals("1001", customers.getLibraryNumber(customerName));
     }
 
 }
