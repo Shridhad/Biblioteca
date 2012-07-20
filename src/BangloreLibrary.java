@@ -23,9 +23,9 @@ public class BangloreLibrary {
         movieStore = new MovieStore();
     }
 
-    private void processBeforeLogin(int choice){
+    private void processAfterLogin(int choice){
         switch (choice){
-            case 1:     login();
+            case 1:     logout();
                 break;
             case 2:     bookRepository.showAllBooks();
                 break;
@@ -50,9 +50,9 @@ public class BangloreLibrary {
         System.out.print(customers.getLibraryNumber(customerName));
     }
 
-    private void processAfterLoggedIn(int choice){
+    private void processBeforeLoggedIn(int choice){
         switch (choice){
-            case 1:     logout();
+            case 1:     login();
                 break;
             case 2:     bookRepository.showAllBooks();
                 break;
@@ -66,6 +66,7 @@ public class BangloreLibrary {
 
     private void logout() {
         isLoggedIn = false;
+        menu = Menu.createMenu();
     }
 
     private void login() {
@@ -86,12 +87,12 @@ public class BangloreLibrary {
 
     public boolean checkValidMenu(int menuIndex) {
         if(isLoggedIn)
-            if(menuIndex <= 0 || menuIndex > 7)
-                return false;
+            if(menuIndex > 0 && menuIndex <= 7)
+                return true;
 
-        if(menuIndex <= 0 || menuIndex > 5)
-           return  false;
-        return true;
+        if(menuIndex > 0 && menuIndex <= 5)
+           return true;
+        return false;
     }
 
     public void displayMenu() {
@@ -99,9 +100,12 @@ public class BangloreLibrary {
     }
 
     public void processUserInput(int choice){
-        if(isLoggedIn)
-            processAfterLoggedIn(choice);
-        processBeforeLogin(choice);
+        if(isLoggedIn) {
+            processAfterLogin(choice);
+            return;
+        }
+
+        processBeforeLoggedIn(choice);
     }
 
     public String welcomeUser() {
@@ -120,7 +124,7 @@ public class BangloreLibrary {
 
             int menuChoice = bangloreLibrary.askUserChoice();
             if(!bangloreLibrary.checkValidMenu(menuChoice))
-                break;
+                System.out.print("\nEnter Correct choice.");
             bangloreLibrary.processUserInput(menuChoice);
         }
     }
