@@ -34,7 +34,7 @@ public class TestBook {
     }
     
     @Test
-    public void shouldReturnBookDetails(){
+    public void shouldReturnCorrectDetailsOfAvailableBook(){
         Book book = new Book("Testing","Kent");
         
         String expectedDetails = new String("Testing Kent Available");
@@ -49,5 +49,29 @@ public class TestBook {
         String expectedDetails = new String("Testing");
 
         Assert.assertEquals(expectedDetails, book.getBookName());
+    }
+
+    @Test
+    public void shouldReturnCorrectDetailsOfIssuedBook() {
+        Book book = new Book("Testing","Kent");
+        book.reserve();
+
+        String expectedDetails = new String("Testing Kent Issued");
+
+        Assert.assertEquals(expectedDetails, book.getBookDetails());
+    }
+    
+    @Test
+    public void shouldEquateWithNull() {
+        Book book = new Book("Testing","Kent");
+
+        Assert.assertFalse(book.equals(null));
+    }
+
+    @Test
+    public void shouldEquateBookWithItself() {
+        Book book = new Book("Testing","Kent");
+
+        Assert.assertTrue(book.equals(book));
     }
 }

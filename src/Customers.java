@@ -15,34 +15,10 @@ public class Customers {
 
     private List<Customer> customerList;
 
-    private class Customer {
-        private String customerName;
-        private int customerNumber;
-
-        public Customer(String customerName, int customerNumber){
-            this.customerName = customerName;
-            this.customerNumber = customerNumber;
-        }
-
-        public int getCustomerNumber(){
-            return customerNumber;
-        }
-
-         public String getCustomerName(){
-            return customerName;
-        }
-    }
-
-    public Customers(){
-        customerList = new ArrayList<Customer>();
-    }
-
-    public String getLibraryNumber(String customerName) {
-        Customer customer = getCustomer(customerName);
-        if(customer == null){
-            return new String("No Such customer exist.!");
-        }
-        return customer.getCustomerNumber() + "";
+    private void addCustomers(){
+        customerList.add(new Customer("ABC","111-1111","abc"));
+        customerList.add(new Customer("XYZ","111-1112","xyz"));
+        customerList.add(new Customer("PQR","111-1113","pqr"));
     }
 
     private Customer getCustomer(String customerName){
@@ -53,12 +29,50 @@ public class Customers {
         return null;
     }
 
-    public String addNewCustomer(String customerName, int customerNumber){
-        Customer customer = new Customer(customerName,customerNumber);
-        customerList.add(customer);
-        String outputString = "\nCustomer Added Successfully";
-        System.out.print(outputString);
+    public Customers(){
+        customerList = new ArrayList<Customer>();
+        addCustomers();
+    }
 
-        return outputString;
+    private class Customer {
+        private String customerName;
+        private String libraryNumber;
+
+        private String password;
+
+        public Customer(String customerName, String libraryNumber, String password){
+            this.customerName = customerName;
+            this.libraryNumber = libraryNumber;
+            this.password = password;
+        }
+
+        public String getLibraryNumber(){
+            return libraryNumber;
+        }
+        public String getCustomerName(){
+            return customerName;
+        }
+
+        public boolean checkLogin(String username, String password) {
+            if(this.libraryNumber.equals(username) && this.password.equals(password))
+                return true;
+            return false;
+        }
+    }
+
+    public boolean login(String username, String password) {
+        for (Customer customer : customerList) {
+            if(customer.checkLogin(username, password))
+                return true;
+        }
+        return false;
+    }
+
+    public String getLibraryNumber(String customerName) {
+        Customer customer = getCustomer(customerName);
+        if(customer == null){
+            return new String("Sorry! No such customer exist.");
+        }
+        return "Library Number: " + customer.getLibraryNumber();
     }
 }

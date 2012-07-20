@@ -16,6 +16,21 @@ public class BookRepository {
 
     public BookRepository(){
         bookList = new ArrayList<Book>();
+        addBooks();
+    }
+
+    private Book getBook(String bookName) {
+        for(Book book:bookList ){
+            if(book.getBookName().equals(bookName))
+                return book;
+        }
+        return null;
+    }
+
+    private void addBooks(){
+        bookList.add(new Book("Testing","Kent"));
+        bookList.add(new Book("Java","Herbert"));
+        bookList.add(new Book("Harry Potter","Rowling"));
     }
 
     public String reserveBook(String bookName) {
@@ -30,14 +45,6 @@ public class BookRepository {
         }
         System.out.print(notAvailableMessage);
         return notAvailableMessage;
-    }
-
-    private Book getBook(String bookName) {
-        for(Book book:bookList ){
-            if(book.getBookName().equals(bookName))
-                return book;
-        }
-        return null;
     }
 
 
@@ -55,14 +62,6 @@ public class BookRepository {
         return outputMessage;
     }
 
-    public String addNewBook(String bookName, String bookAuthor ) {
-        Book newBook = new Book(bookName,bookAuthor);
-
-        bookList.add(newBook);
-        String message = "\nBook Added Successfully" ;
-        System.out.print(message);
-        return message;
-    }
 
     public String showAllBooks() {
         String output = "\nBookName BookAuthor Status\n";

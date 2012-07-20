@@ -36,8 +36,20 @@ public class UserInput {
         }
     }
 
+    public String askUserName() {
+        System.out.print("\nEnter User name:");
+        return scanner.nextLine();
+    }
+
+    public String askPassword() {
+        System.out.print("\nEnter Password:");
+        return scanner.nextLine();
+    }
+
     public String askCustomerName() {
         System.out.print("\nEnter Customer Name:");
         return scanner.nextLine();
     }
+
+
 }

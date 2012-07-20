@@ -9,26 +9,5 @@ import java.util.Scanner;
  */
 public class User {
 
-    public static void main(String []args)throws Exception{
-        BangloreLibrary bangloreLibrary = new BangloreLibrary();
-        bangloreLibrary.welcomeUser();
 
-        String bookName = "Testing";
-        String bookAuthor = "Kent";
-        bangloreLibrary.addNewBook(bookName, bookAuthor);
-        bangloreLibrary.addNewBook("Java", "Herbert");
-        bangloreLibrary.addNewBook("OOD", "Booch");
-
-        bangloreLibrary.addNewCustomer("ABC", 1001);
-        bangloreLibrary.addNewCustomer("XYZ", 1002);
-
-        while(true){
-            bangloreLibrary.displayMenu();
-
-            int menuChoice = bangloreLibrary.askUserChoice();
-            if(!bangloreLibrary.checkValidMenu(menuChoice))
-                break;
-            bangloreLibrary.processUserInput(menuChoice);
-        }
-    }
 }

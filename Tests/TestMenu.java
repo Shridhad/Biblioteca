@@ -1,9 +1,6 @@
 import junit.framework.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 /**
  * Created by IntelliJ IDEA.
  * User: Shridhar Deshmukh
@@ -14,9 +11,16 @@ import java.util.Arrays;
 public class TestMenu {
     
     @Test
-    public void shouldCreateRightBookMenu(){
-        Menu bookMenu = Menu.createBookMenu();
-        String expectedBookMenu = "\nMenu: \n1. View All Books\n2. Reserve Book\n3. Return Book\n4. Show Library Number\n5. Exit";
+    public void shouldCreateRightMenu(){
+        Menu bookMenu = Menu.createMenu();
+        String expectedBookMenu = "\nMenu: \n1. Login\n2. View All Books\n3. Show All Movies\n4. Show Library Number\n5. Exit";
+        Assert.assertEquals(expectedBookMenu, bookMenu.toString());
+    }
+
+    @Test
+    public void shouldCreateLoggedInMenu(){
+        Menu bookMenu = Menu.createLoggedInMenu();
+        String expectedBookMenu = "\nMenu: \n1. Logout\n2. View All Books\n3. Show All Movies\n4. Show Library Number\n5. Reserve Book\n6. Return Book\n7. Exit";
         Assert.assertEquals(expectedBookMenu, bookMenu.toString());
     }
 

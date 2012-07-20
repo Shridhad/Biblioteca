@@ -11,32 +11,51 @@ import java.util.Arrays;
 /* Responsibility : Create and display menu */
 public class Menu {
 
+    private MenuItem []menuItems;
+
+    private Menu(MenuItem[] menuItems){
+        this.menuItems = menuItems;
+    }
+
     public enum MenuItem{
         ViewAllBooks("View All Books"),
         ReserveBook("Reserve Book"),
         ReturnBook("Return Book"),
         ShowLibraryNumber("Show Library Number"),
-        Exit("Exit");
+        Exit("Exit"),
+        ShowAllMovies("Show All Movies"),
+        Login("Login"),
+        Logout("Logout");
 
         private String menuItemName;
 
         private MenuItem(String menuItemName){
             this.menuItemName = menuItemName;
         }
-
         @Override
         public String toString(){
             return menuItemName;
         }
     }
-    private MenuItem []menuItems;
-    
-    private Menu(MenuItem[] menuItems){
-        this.menuItems = menuItems;
-    }      
-    
-    public static Menu createBookMenu() {
-        MenuItem []menuItems = {MenuItem.ViewAllBooks, MenuItem.ReserveBook, MenuItem.ReturnBook, MenuItem.ShowLibraryNumber, MenuItem.Exit};
+
+    public static Menu createLoggedInMenu() {
+        MenuItem []menuItems = {MenuItem.Logout,
+                MenuItem.ViewAllBooks,
+                MenuItem.ShowAllMovies,
+                MenuItem.ShowLibraryNumber,
+                MenuItem.ReserveBook,
+                MenuItem.ReturnBook,
+                MenuItem.Exit};
+
+        return new Menu(menuItems);
+    }
+
+    public static Menu createMenu() {
+        MenuItem []menuItems = {MenuItem.Login,
+                                MenuItem.ViewAllBooks,
+                                MenuItem.ShowAllMovies,
+                                MenuItem.ShowLibraryNumber,
+                                MenuItem.Exit};
                      
         return new Menu(menuItems);
     }

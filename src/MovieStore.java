@@ -32,6 +32,7 @@ public class MovieStore {
         for (Movie movie : movies) {
             output = output + "\n" + movie;
         }
+        System.out.print(output);
         return output;
     }
 }

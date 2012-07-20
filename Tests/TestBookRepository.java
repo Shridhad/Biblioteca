@@ -12,21 +12,11 @@ public class TestBookRepository {
     BookRepository bookRepository = new BookRepository();
 
     @Test
-    public void testAddsNewBookToLibrary(){
-        String bookName = "Testing";
-        String bookAuthor = "Kent";
-
-        Assert.assertEquals("\nBook Added Successfully", bookRepository.addNewBook(bookName, bookAuthor));
-    }
-
-    @Test
     public void testShowAllBooks(){
-        String bookName = "Testing";
-        String bookAuthor = "Kent";
-        bookRepository.addNewBook(bookName, bookAuthor);
-
-        String expectedOutput = "\nBookName BookAuthor Status\n";
-        expectedOutput = expectedOutput + "Testing Kent Available\n";
+        String expectedOutput = "\nBookName BookAuthor Status\n"
+                                 + "Testing Kent Available\n"
+                                 + "Java Herbert Available\n"
+                                 + "Harry Potter Rowling Available\n";
 
         Assert.assertEquals(expectedOutput, bookRepository.showAllBooks());
     }
@@ -34,15 +24,13 @@ public class TestBookRepository {
     @Test
     public void testNotifyIfBookReserved(){
         String bookName = "Testing";
-        String bookAuthor = "Kent";
-        bookRepository.addNewBook(bookName, bookAuthor);
 
         Assert.assertEquals("Thank You! Enjoy the book.", bookRepository.reserveBook(bookName));
     }
 
     @Test
     public void testNotifyIfBookNotAvailable(){
-        String  bookName = "Java";
+        String  bookName = "Object Oriented";
 
         Assert.assertEquals("Sorry we don't have that book yet.", bookRepository.reserveBook(bookName));
     }
@@ -50,10 +38,15 @@ public class TestBookRepository {
     @Test
     public void testNotifyIfBookReturned(){
         String bookName = "Testing";
-        String bookAuthor = "Kent";
-        bookRepository.addNewBook(bookName,bookAuthor);
         bookRepository.reserveBook(bookName);
         Assert.assertEquals("Thank you! Hope you enjoyed the book.", bookRepository.returnBook(bookName));
+    }
+
+    @Test
+    public void testNotifyIfWrongBookIsReturning() {
+        String bookName = "Testing";
+
+        Assert.assertEquals("No Such Book was issued to you.", bookRepository.returnBook(bookName));
     }
 
 }

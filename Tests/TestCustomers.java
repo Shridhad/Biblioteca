@@ -8,7 +8,7 @@ import org.junit.Test;
  * Time: 9:46 AM
  * To change this template use File | Settings | File Templates.
  */
-public class TestCustomer {
+public class TestCustomers {
 
     Customers customers = new Customers();
 
@@ -20,11 +20,26 @@ public class TestCustomer {
     }
 
     @Test
-    public void testLogin() {
+    public void testLoginWithCorrectUserNameAndPassword() {
         String username = "111-1111";
         String password = "abc";
 
         Assert.assertTrue(customers.login(username,password));
+    }
+
+    @Test
+    public void testLoginWithIncorrectUsernameAndPassword() {
+        String username = "112-1111";
+        String password = "def";
+
+        Assert.assertFalse(customers.login(username,password));
+    }
+
+    @Test
+    public void shouldNotifyIfCustomerExists() {
+        String customerName = new String("EFC");
+
+        Assert.assertEquals("Sorry! No such customer exist.",customers.getLibraryNumber(customerName));
     }
 
 }
